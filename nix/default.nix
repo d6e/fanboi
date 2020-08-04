@@ -29,7 +29,7 @@ in
         rustfmt.enable = true;
         clippy.enable = true;
         cargo-check.enable = true;
-        yamllint.enable = true;
+        yamllint.enable = false;
       };
       # generated files
       excludes = [ "^nix/sources\.nix$" ];
