@@ -5,7 +5,7 @@ let
   # default nixpkgs
   pkgs = import sources.nixpkgs {};
 
-  # gitignore.nix 
+  # gitignore.nix
   gitignoreSource = (import sources."gitignore.nix" { inherit (pkgs) lib; }).gitignoreSource;
 
   src = gitignoreSource ./..;
@@ -26,6 +26,10 @@ in
         shellcheck.enable = true;
         nixpkgs-fmt.enable = true;
         nix-linter.enable = true;
+        rustfmt.enable = true;
+        clippy.enable = true;
+        cargo-check.enable = true;
+        yamllint.enable = true;
       };
       # generated files
       excludes = [ "^nix/sources\.nix$" ];
