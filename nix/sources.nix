@@ -84,7 +84,7 @@ let
   # a Nix version of mapAttrs if the built-in doesn't exist
   mapAttrs = builtins.mapAttrs or (
     f: set: with builtins;
-    listToAttrs (map (attr1: { name = attr1; value = f attr1 set.${attr1}; }) (attrNames set))
+    listToAttrs (map (attr: { name = attr; value = f attr set.${attr}; }) (attrNames set))
   );
 
   # fetchTarball version that is compatible between all the versions of Nix
