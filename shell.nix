@@ -6,7 +6,7 @@ let
   ats_rs = (import ./default.nix {}).ats_rs;
 in
 project.pkgs.mkShell {
-  buildInputs = builtins.attrValues project.devTools ++ [ rust ats_rs ];
+  buildInputs = builtins.attrValues project.devTools ++ [ project.pkgs.cargo-edit rust ats_rs ];
   shellHook = ''
     ${project.ci.pre-commit-check.shellHook}
   '';
