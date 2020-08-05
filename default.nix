@@ -16,7 +16,7 @@ let
     ./.;
 in
 {
-  ats_rs = naersk.buildPackage {
+  fanboi = naersk.buildPackage {
     inherit src;
     remapPathPrefix =
       true; # remove nix store references for a smaller output package

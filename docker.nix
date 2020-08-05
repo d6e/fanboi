@@ -1,18 +1,18 @@
 let
   sources = import ./nix/sources.nix;
   pkgs = import sources.nixpkgs {};
-  ats_rs = (import ./default.nix { inherit sources pkgs; }).ats_rs;
+  fanboi = (import ./default.nix { inherit sources pkgs; }).fanboi;
 
-  name = "d6e/ats_rs";
+  name = "d6e/fanboi";
   tag = "latest";
 
 in
 pkgs.dockerTools.buildLayeredImage {
   inherit name tag;
-  contents = [ ats_rs ];
+  contents = [ fanboi ];
 
   config = {
-    Cmd = [ "/bin/ats_rs" ];
+    Cmd = [ "/bin/fanboi" ];
     WorkingDir = "/";
   };
 }

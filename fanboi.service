@@ -1,0 +1,14 @@
+[Unit]
+Description=Fanboi - A simple PID fan controller
+After=local-fs.target
+StartLimitIntervalSec=0
+
+[Service]
+Type=simple
+Restart=always
+RestartSec=8
+User=root
+ExecStart=/usr/local/sbin/fanboi
+
+[Install]
+WantedBy=basic.target
