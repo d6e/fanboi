@@ -1,0 +1,13 @@
+diff --git a/src/ats b/src/ats
+index 4170bd1..740cebc 100755
+--- a/src/ats
++++ b/src/ats
+@@ -22,7 +22,7 @@ end
+
+ --- Load System Configuration File
+ --
+-dofile("/etc/ats.conf")
++dofile(os.getenv("ATS_CONF"))
+
+ ----
+ ---- Core Functions

@@ -18,12 +18,15 @@ in
   ats = pkgs.lua53Packages.buildLuarocksPackage rec {
     pname = "ats";
     version = "0.2.0";
-    knownRockspec = "${ats_src.outPath}/ats-0.2-0.rockspec";
+    patches = [
+      ./ats.patch # fixes the config path
+    ];
+    knownRockspec = ./ats-master-0.rockspec;
     src = ats_src;
     propagatedBuildInputs = with pkgs; [ lua_library ];
     extraVariables = ''
       LUA_LIBDIR="${pkgs.lua}/lib";
-      SYSVINIT=9;
+      ATS_CONF="${ats_src}/etc/ats.conf";
     '';
     meta = with pkgs.stdenv.lib; {
       description =
