@@ -1,6 +1,7 @@
 { project ? import ./nix {} }:
 let
   pkgs = project.pkgs;
+  ats_src = (import ./nix/sources.nix {}).ats;
   lua_library = pkgs.stdenv.mkDerivation rec {
     name = pkgs.lua5_3.name;
     version = pkgs.lua5_3.version;
@@ -14,17 +15,20 @@ let
   };
 in
 {
-  ats = pkgs.stdenv.mkDerivation rec {
-    name = "ats";
+  ats = pkgs.lua53Packages.buildLuarocksPackage rec {
+    pname = "ats";
     version = "0.2.0";
-    src = (import ./nix/sources.nix {}).ats;
-    coreutils = pkgs.coreutils;
-    buildInputs = [ pkgs.lua5_3 pkgs.lua5_3_compat ];
-    lua = lua_library;
-    builder = ./builder.sh;
+    knownRockspec = "${ats_src.outPath}/ats-0.2-0.rockspec";
+    src = ats_src;
+    propagatedBuildInputs = with pkgs; [ lua_library ];
+    extraVariables = ''
+      LUA_LIBDIR="${pkgs.lua}/lib";
+      SYSVINIT=9;
+    '';
     meta = with pkgs.stdenv.lib; {
       description =
         "Active Fan Thermal Service tool, to Control Processor Temperature on RockPro64 Single Board Computer.";
+      hydraPlatforms = stdenv.lib.platforms.linux;
       maintainers = { email = "nixpkgs@d6e.io"; github = "d6e"; githubId = 2476055; name = "Danielle"; };
       homepage = "https://github.com/tuxd3v/ats";
     };

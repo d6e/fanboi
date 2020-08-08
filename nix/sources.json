@@ -1,15 +1,9 @@
 {
     "ats": {
-        "branch": "master",
-        "description": null,
-        "homepage": null,
-        "owner": "tuxd3v",
-        "repo": "ats",
-        "rev": "866a68f27fe9afff58ce323aa174979ba4203e96",
-        "sha256": "0kyfcndlkara61cd9i2n6b711k9lir92sv8s2120l51zkv1gnif5",
-        "type": "tarball",
-        "url": "https://github.com/tuxd3v/ats/archive/866a68f27fe9afff58ce323aa174979ba4203e96.tar.gz",
-        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+        "ref": "master",
+        "repo": "/home/d6e/src/github.com/tuxd3v/ats",
+        "rev": "fc5a8f08a056e8f3ca6645a0091213bb405199ca",
+        "type": "git"
     },
     "gitignore.nix": {
         "branch": "master",
