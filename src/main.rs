@@ -16,8 +16,6 @@ struct Config {
     fan_pwm_ctl: String,
 }
 
-
-
 impl Config {
     fn write_pwm(&self, pwm: Pwm, dry_run: bool) {
         println!("setPWM={}", pwm);
@@ -27,6 +25,19 @@ impl Config {
             f.write_all(pwm.to_string().as_bytes()).unwrap();
             f.sync_data().unwrap();
         }
+    }
+
+    fn read_pwm(&self) -> Pwm {
+        println!("Reading file={}", &self.fan_pwm_ctl);
+        let temp_str: String = read_to_string(&self.fan_pwm_ctl).unwrap();
+        let parsed = match temp_str.trim().parse::<u32>() {
+            Err(e) => {
+                eprintln!("ERROR='{}' string='{}'", e, temp_str);
+                Err(e)
+            },
+            Ok(u) => Ok(u)
+        };
+        parsed.unwrap() as Pwm
     }
 
     // Read over the two thermal zones, return the max.
@@ -64,7 +75,7 @@ fn main() -> Result<(), Box<dyn Error>> {
     let poll_interval_secs = 10;
 
     // The values for the pid can be tuned to best match the temperature
-    let mut pid = Pid::new(1.2, 0.7, 4.0, 100.0, 100.0, 100.0, target_temp);
+    let mut pid = Pid::new(1.0, 0.7, 4.0, 100.0, 100.0, 100.0, target_temp);
     loop {
         let temp = config.get_thermal();
         let output = pid.next_control_output(temp as f32);
@@ -73,11 +84,10 @@ fn main() -> Result<(), Box<dyn Error>> {
         let new_pwm = if inverted_output < 0.0 {0.0} else {inverted_output};
         // let pwm: Pwm =  as Pwm; // have to invert because going higher makes it lower
         println!("temp={} pwm={} output={} inverted_output={}", temp, new_pwm, output.output, inverted_output);
-        //let is_fan_running = config.read_pwm() != 0;
+        let is_fan_running = config.read_pwm() != 0;
         // The fan struggles to start at low pwm values. Only start the fan if the new pwm
         // value is high enough to actually start the fan.
-        //if is_fan_running || new_pwm > 50.0 {
-        if new_pwm > 50.0 {
+        if is_fan_running || new_pwm > 50.0 {
             config.write_pwm(new_pwm as Pwm, dry_run);
         }
         thread::sleep(time::Duration::from_secs(poll_interval_secs));
