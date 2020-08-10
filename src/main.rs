@@ -79,10 +79,8 @@ fn main() -> Result<(), Box<dyn Error>> {
     loop {
         let temp = config.get_thermal();
         let output = pid.next_control_output(temp as f32);
-        // let pwm: Pwm = output.output as Pwm;
         let inverted_output = -1.0 * output.output;
         let new_pwm = if inverted_output < 0.0 {0.0} else {inverted_output};
-        // let pwm: Pwm =  as Pwm; // have to invert because going higher makes it lower
         println!("temp={} pwm={} output={} inverted_output={}", temp, new_pwm, output.output, inverted_output);
         let is_fan_running = config.read_pwm() != 0;
         // The fan struggles to start at low pwm values. Only start the fan if the new pwm
