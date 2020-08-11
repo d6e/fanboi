@@ -19,10 +19,9 @@ struct Config {
 
 impl Config {
     fn write_pwm(&self, pwm: Pwm, dry_run: bool, verbose: bool) {
-        println!("setPWM={}", pwm);
         if !dry_run {
             if verbose {
-                println!("Writing file={}", &self.fan_pwm_ctl);
+                println!("Writing file={} pwm={}", &self.fan_pwm_ctl, pwm);
             }
             let mut f = File::create(&self.fan_pwm_ctl).unwrap();
             f.write_all(pwm.to_string().as_bytes()).unwrap();
@@ -141,6 +140,7 @@ fn main() -> Result<(), Box<dyn Error>> {
 
     println!("Starting PID fan controller...");
     let poll_interval_secs = 10;
+    let minimum_pwm = 50.0;
 
     // The values for the pid can be tuned to best match the temperature
     println!("PID initialized with p={} i={} d={} target_temp={}", p_value, i_value, d_value, target_temp);
@@ -155,10 +155,10 @@ fn main() -> Result<(), Box<dyn Error>> {
         if verbose {
             println!("temp={} new_pwm={}", temp, new_pwm);
         }
-        let is_fan_running = config.read_pwm(verbose) != 0;
+
         // The fan struggles to start at low pwm values. Only start the fan if the new pwm
         // value is high enough to actually start the fan.
-        if is_fan_running || new_pwm > 50.0 {
+        if new_pwm > minimum_pwm {
             config.write_pwm(new_pwm as Pwm, dry_run, verbose);
         }
         thread::sleep(time::Duration::from_secs(poll_interval_secs));
