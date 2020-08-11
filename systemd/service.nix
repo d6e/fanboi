@@ -16,7 +16,7 @@ in
     systemd.services.fanboi = {
       description = "A linux PID controller for fans.";
       after = [ "local-fs.target" ];
-      StartLimitIntervalSec = 0;
+      startLimitIntervalSec = 0;
       serviceConfig = {
         Type = "simple";
         ExecStart = "${fanboi}/bin/fanboi ${lib.concatStringsSep " " cfg.extraArgs}";
