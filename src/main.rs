@@ -158,7 +158,7 @@ fn main() -> Result<(), Box<dyn Error>> {
 
         // The fan struggles to start at low pwm values. Only start the fan if the new pwm
         // value is high enough to actually start the fan.
-        if new_pwm > minimum_pwm {
+        if new_pwm > minimum_pwm || new_pwm == 0 {
             config.write_pwm(new_pwm as Pwm, dry_run, verbose);
         }
         thread::sleep(time::Duration::from_secs(poll_interval_secs));
