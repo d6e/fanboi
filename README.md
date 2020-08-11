@@ -1,4 +1,4 @@
-# Fanboi
+# Fanboi 🌬🖥️🌡️
 A linux PID controller for fans.
 
 ## What is This?
