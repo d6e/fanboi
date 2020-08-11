@@ -18,8 +18,8 @@ in
 {
   fanboi = naersk.buildPackage {
     inherit src;
-    remapPathPrefix =
-      true; # remove nix store references for a smaller output package
+    # remove nix store references for a smaller output package
+    remapPathPrefix = true;
   };
   ci = (import ./nix {}).ci;
 }

@@ -1,3 +1,0 @@
-cpu_temperature_ctl = "/sys/class/thermal/thermal_zone0/temp"
-gpu_temperature_ctl = "/sys/class/thermal/thermal_zone1/temp"
-fan_pwm_ctl = "/sys/class/hwmon/hwmon0/pwm1"
