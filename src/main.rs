@@ -137,7 +137,7 @@ fn main() -> Result<(), Box<dyn Error>> {
 
     let file = read_to_string(config_filename)?;
     let config: Config = toml::from_str(&file)?;
-    drop(file);
+    drop(file); // We don't need it anymore.
 
     println!("Starting PID fan controller...");
     let poll_interval_secs = 10;
@@ -148,7 +148,9 @@ fn main() -> Result<(), Box<dyn Error>> {
     loop {
         let temp = config.get_thermal(verbose);
         let output = pid.next_control_output(temp as f32);
+        // Invert fan speed because the fan speed is inversely related to temperature.
         let inverted_output = -1.0 * output.output;
+        // Round negative pwm values to zero since the fans can't go backwards.
         let new_pwm = if inverted_output < 0.0 {0.0} else {inverted_output};
         if verbose {
             println!("temp={} new_pwm={}", temp, new_pwm);
