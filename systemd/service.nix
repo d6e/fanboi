@@ -1,6 +1,6 @@
 { config, lib, pkgs, ... }:
 let
-  fanboi = pkgs.callPackage ./default.nix {};
+  fanboi = (pkgs.callPackage ../default.nix {}).fanboi;
 
   cfg = config.services.fanboi;
 in
