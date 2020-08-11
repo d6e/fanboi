@@ -14,7 +14,7 @@ in
   config = lib.mkIf cfg.enable {
     systemd.services.fanboi = {
       description = "A linux PID controller for fans.";
-      after = [ "local-fs.target" ];
+      wantedBy = [ "multi-user.target" ];
       startLimitIntervalSec = 0;
       serviceConfig = {
         Type = "simple";
