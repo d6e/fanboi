@@ -189,9 +189,9 @@ fn main() -> Result<(), Box<dyn Error>> {
         let temp = config.get_thermal();
         let output = pid.next_control_output(temp);
         // Invert fan speed because the fan speed is inversely related to temperature.
-        let inverted_output: Pwm = (-1.0 * output.output).ceil() as Pwm;
+        let inverted_output = (-1.0 * output.output).ceil();
         // Round negative pwm values to zero since the fans can't go backwards.
-        let new_pwm: Pwm = if inverted_output < 0 {0} else {inverted_output};
+        let new_pwm: Pwm = if inverted_output < 0.0 {0} else {inverted_output as Pwm};
         if config.verbose {
             println!("temp={} new_pwm={}", temp, new_pwm);
         }
