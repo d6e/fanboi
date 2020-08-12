@@ -23,13 +23,16 @@ FLAGS:
     -v, --verbose    Sets the level of verbosity
 
 OPTIONS:
-    -c, --cpu_temp_ctl <CPU_TEMP_FILE>    The CPU temperature file. Default is '/sys/class/thermal/thermal_zone0/temp'
+    -c, --cpu-temp-ctl <CPU_TEMP_FILE>    The CPU temperature file. Default='/sys/class/thermal/thermal_zone0/temp'
     -d, --dvalue <D>                      Sets the D gain value of the PID controller.
-    -f, --fan_pwm_ctl <FAN_FILE>          Fan control file. Default is '/sys/class/hwmon/hwmon0/pwm1'
-    -g, --gpu_temp_ctl <CPU_TEMP_FILE>    The GPU temperature file. Default is '/sys/class/thermal/thermal_zone1/temp'
+    -f, --fan-pwm-ctl <FAN_FILE>          Fan control file. Default='/sys/class/hwmon/hwmon0/pwm1'
+    -g, --gpu-temp-ctl <CPU_TEMP_FILE>    The GPU temperature file. Default='/sys/class/thermal/thermal_zone1/temp'
     -i, --ivalue <I>                      Sets the I gain value of the PID controller.
+        --minimum-pwm <PWM>               The minimum control output pwm before activating the fan. Default='50'
+        --poll-interval-secs <SECONDS>    The frequency at which to poll the temperature and update fan pwm.
+                                          Default='10'
     -p, --pvalue <P>                      Sets the P gain value of the PID controller.
-    -t, --target_temp <VALUE>             Target temperature. Default is 40°C
+    -t, --target-temp <VALUE>             Target temperature. Default=40°C
 ```
 
 ## Docker
