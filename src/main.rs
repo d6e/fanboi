@@ -88,16 +88,16 @@ fn get_program_input() -> Config {
     let default_minimum_pwm = 50;
     let name_config = "config";
     let name_verbose = "verbose";
-    let name_dry_run = "dry_run";
+    let name_dry_run = "dry-run";
     let name_p_value = "pvalue";
     let name_i_value = "ivalue";
     let name_d_value = "dvalue";
-    let name_target_temp = "target_temp";
-    let name_cpu_temperature_ctl = "cpu_temp_ctl";
-    let name_gpu_temperature_ctl = "gpu_temp_ctl";
-    let name_fan_pwm_ctl = "fan_pwm_ctl";
-    let name_poll_interval_secs = "poll_interval_secs";
-    let name_minimum_pwm = "minimum_pwm";
+    let name_target_temp = "target-temp";
+    let name_cpu_temperature_ctl = "cpu-temp-ctl";
+    let name_gpu_temperature_ctl = "gpu-temp-ctl";
+    let name_fan_pwm_ctl = "fan-pwm-ctl";
+    let name_poll_interval_secs = "poll-interval-secs";
+    let name_minimum_pwm = "minimum-pwm";
     let matches = App::new("fanboi")
         .version("1.0")
         .author("Danielle <fanboi@d6e.io>")
