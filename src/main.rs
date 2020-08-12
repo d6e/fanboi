@@ -36,6 +36,7 @@ impl Config {
         }
     }
 
+    #[allow(dead_code)]
     fn read_pwm(&self) -> Pwm {
         if self.verbose {
             println!("Reading file={}", &self.fan_pwm_ctl);
@@ -76,7 +77,6 @@ impl Config {
 }
 
 fn get_program_input() -> Config {
-    let default_config = "fanboi.toml";
     let default_p_value = 1.0;
     let default_i_value = 0.7;
     let default_d_value = 4.0;
@@ -86,7 +86,6 @@ fn get_program_input() -> Config {
     let default_gpu_temperature_ctl = String::from("/sys/class/thermal/thermal_zone1/temp");
     let default_poll_interval_secs = 10;
     let default_minimum_pwm = 50;
-    let name_config = "config";
     let name_verbose = "verbose";
     let name_dry_run = "dry-run";
     let name_p_value = "pvalue";
