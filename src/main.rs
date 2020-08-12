@@ -177,6 +177,18 @@ fn get_program_input() -> Config {
     }
 }
 
+#[test]
+fn test_to_pwm() {
+    assert_eq!(to_pwm(-20.0), 0);
+    assert_eq!(to_pwm(0.0), 0);
+    assert_eq!(to_pwm(20.0), 20);
+}
+
+fn to_pwm(x: f32) -> Pwm {
+    // Round negative pwm values to zero since the fans can't go backwards.
+    if x < 0.0 {0} else {x as Pwm}
+}
+
 fn main() -> Result<(), Box<dyn Error>> {
     let config = get_program_input();
 
@@ -190,8 +202,7 @@ fn main() -> Result<(), Box<dyn Error>> {
         let output = pid.next_control_output(temp);
         // Invert fan speed because the fan speed is inversely related to temperature.
         let inverted_output = (-1.0 * output.output).ceil();
-        // Round negative pwm values to zero since the fans can't go backwards.
-        let new_pwm: Pwm = if inverted_output < 0.0 {0} else {inverted_output as Pwm};
+        let new_pwm: Pwm = to_pwm(inverted_output);
         if config.verbose {
             println!("temp={} new_pwm={}", temp, new_pwm);
         }
