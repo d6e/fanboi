@@ -24,14 +24,14 @@ FLAGS:
 
 OPTIONS:
     -c, --cpu-temp-ctl <CPU_TEMP_FILE>    The CPU temperature file. Default='/sys/class/thermal/thermal_zone0/temp'
-    -d, --dvalue <D>                      Sets the D gain value of the PID controller.
+    -d, --dvalue <D>                      Sets the D gain value of the PID controller. Default=4°C
     -f, --fan-pwm-ctl <FAN_FILE>          Fan control file. Default='/sys/class/hwmon/hwmon0/pwm1'
     -g, --gpu-temp-ctl <CPU_TEMP_FILE>    The GPU temperature file. Default='/sys/class/thermal/thermal_zone1/temp'
-    -i, --ivalue <I>                      Sets the I gain value of the PID controller.
+    -i, --ivalue <I>                      Sets the I gain value of the PID controller. Default=0.7°C
         --minimum-pwm <PWM>               The minimum control output pwm before activating the fan. Default='50'
         --poll-interval-secs <SECONDS>    The frequency at which to poll the temperature and update fan pwm.
                                           Default='10'
-    -p, --pvalue <P>                      Sets the P gain value of the PID controller.
+    -p, --pvalue <P>                      Sets the P gain value of the PID controller. Default=1°C
     -t, --target-temp <VALUE>             Target temperature. Default=40°C
 ```
 
