@@ -2,7 +2,8 @@ name: Update niv
 
 on:
   schedule:
-    - cron: '0 17 * * *'
+    # every week on monday
+    - cron: '0 17 * * 1'
 
 jobs:
   update-dependencies:
