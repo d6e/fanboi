@@ -8,4 +8,4 @@ edition = "2018"
 
 [dependencies]
 pid = "2.1.0"
-clap = "2.33.2"
+clap = "2.33.3"
